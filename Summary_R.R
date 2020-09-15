@@ -48,8 +48,11 @@ barplot(table(age)/length(age), ylab = "probability", xlab = "age")
 
 #binomial distibution
 
-#cdf
-#1- P(X <= n_success - 1)
+#dbinom is a probability mass function of binomial distribution.
+#dbinom <- P(X=x), probability of observing value equal to x.
+#pbinom is a cumulative distribution function of this distribution. 
+#pbinom <- P(X≤x), probability of observing value smaller or equal then x.
+
 #what is the probability that 2 people from the dataset are smokers when randomly selecting 5?
 mean(smoke) #gives the probability of a person being a smoker, 0.5
 dbinom(2, size = 5, prob = 0.5)
@@ -59,6 +62,8 @@ dbinom(1, size = 5, prob = 0.5)+
 dbinom(2, size = 5, prob = 0.5)
 #or
 pbinom(2, size = 5, prob = 0.5)
+#2 or more smokers
+pbinom(1, size = 5, prob = 0.5, lower = FALSE)
 #roll 3 dice and let X be the number of 6s rolled. What is the distribution of X?
 dist<- c(dbinom(0, size = 3, prob = 0.167),
 dbinom(1, size = 3, prob = 0.167),
@@ -91,17 +96,30 @@ barplot(runif(100, min = 1, max = 3))
 
 #normal distribution
 
-#what percentage of the participants are older than 60?
-mean(age)
-sd(age)
-pnorm(60, mean = 56, sd = 11.23487, lower.tail = FALSE)
-#check to see if corr with
-mean(age > 60)
+#rnorm generates a normally distributed dataset
+normal_dat <- rnorm(1000, mean = 0, sd = 1)
+plot(density(normal_dat))
+#pnorm returns the integral from −∞ to q of the pdf of the normal distribution where q is a Z-score
+#given parameters for pnorm(q, mean = μ, sd = σ)
+#this says that about 99,8% of the data is below 3 z-scores from the mean
+pnorm(3, mean = 0, sd = 1)
+#this says that about 0,13% of the data is above 3 z-scores from the mean
+pnorm(3, mean = 0, sd = 1, lower = F)
+#95% conf interval
+pnorm(1.96, mean = 0, sd = 1) - pnorm(1.96, mean = 0, sd = 1, lower = F)
+
 # Calculate the probability that a normal random variable with mean 10
 # and standard deviation 4 is between -2 and 2 or between 14 and 18.
 # That is, the probability of the union of the events -2 < X < 2 and 14 < X < 18.
 pnorm(2, mean = 10, sd = 4) - pnorm(-2, mean = 10, sd = 4) +
   pnorm(18, mean = 10, sd = 4) - pnorm(14, mean = 10, sd = 4)
+
+#what percentage of the participants are older than 60?
+mean(age)
+sd(age)
+pnorm(60, mean = 56, sd = 11.23487, lower.tail = FALSE)
+#check to see if roughly same as
+mean(age > 60)
 
 #plotting
 
