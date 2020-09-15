@@ -1,21 +1,23 @@
 lab1_dat <- read.csv("C:/Users/User/Documents/KI/Biostatistics/data1.csv",
                      header = TRUE, sep = ";", stringsAsFactors = TRUE)
 attach(lab1_dat)
-#hur många kvinnor
+#how many females?
 sum(sex == "f")
-#hur många människor
+#how many people with sexes?
 length(sex)
-#vilka är kvinnor? (siffror index)
+#which are female (siffror index)?
 which(sex == "f")
-#hur stor andel kvinnor
+#what proportion are female?
 sum(sex == "f")/length(sex)
 mean(sex == "f")
-#hur gamla är kvinnorna?
+#how old are the females?
 age[sex == "f"]
 # Compute the minimum and maximum age, separately in males and females.
 tapply(age,sex, range) # tapply(to_what, by_what, what_function)
 #male or female
 length(sex == "f" | sex == "m")
+#is everyone female?
+all(sex == "f")
 
 
 #frequentist probability
